@@ -1,0 +1,9 @@
+.vscode/
+.micropico
+.venv/
+__pycache__/
+*.pyc
+device/
+build/
+release/
+system-config.json
