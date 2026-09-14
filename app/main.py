@@ -1,15 +1,19 @@
 import uasyncio as asyncio
 from machine import Pin
+from lib.coresys.ota_state import load_state
+from lib.coresys.slot_manager import confirm_running_slot
 
-MESSAGE = "Starting intentionally hung watchdog candidate 1.0.23"
+MESSAGE = "Hello from A/B-only Milestone 4 candidate 1.0.24"
 
 
 async def main():
     led = Pin("LED", Pin.OUT)
     print(MESSAGE)
-    # Deliberately remain responsive to the event loop without confirming.
-    # Stable watchdog infrastructure must stop feeding after its candidate
-    # deadline, reset the device, and let the launcher roll this release back.
+    await asyncio.sleep(3)
+    state = load_state()
+    running_slot = state["pending"] or state["active"]
+    confirm_running_slot(running_slot)
+    print("Confirmed healthy application slot: " + running_slot)
     while True:
         led.toggle()
         await asyncio.sleep(1)
