@@ -21,5 +21,14 @@ if [ ! -x "$PYTHON" ]; then
     exit 2
 fi
 
+if [ "$#" -gt 0 ]; then shift; fi
+if [ "$#" -gt 0 ]; then shift; fi
+
 "$PYTHON" "$APP_ROOT/tools/assemble.py"
-PATH="$APP_ROOT/.venv/bin:$PATH" "$PYTHON"     "$APP_ROOT/$SUBMODULE/local_builder.py"     --source-dir "$APP_ROOT/device"     --output-dir "$APP_ROOT/build"     --model "$MODEL"     --version "$VERSION"
+PATH="$APP_ROOT/.venv/bin:$PATH" "$PYTHON" \
+    "$APP_ROOT/$SUBMODULE/local_builder.py" \
+    --source-dir "$APP_ROOT/device" \
+    --output-dir "$APP_ROOT/build" \
+    --model "$MODEL" \
+    --version "$VERSION" \
+    "$@"
