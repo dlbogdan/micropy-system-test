@@ -3,11 +3,10 @@ from machine import Pin
 from lib.coresys.ota_state import load_state
 from lib.coresys.slot_manager import confirm_running_slot
 
-MESSAGE = "This candidate must fail before confirmation"
+MESSAGE = "Hello from interruption-safe A/B candidate 1.0.21"
 
 
 async def main():
-    raise RuntimeError("intentional A/B rollback validation failure")
     led = Pin("LED", Pin.OUT)
     print(MESSAGE)
     # Configuration and managers are now alive. A short period of stable event
