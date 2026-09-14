@@ -1,12 +1,22 @@
 import uasyncio as asyncio
 from machine import Pin
+from lib.coresys.ota_state import load_state
+from lib.coresys.slot_manager import confirm_running_slot
 
-MESSAGE = "Hello world from micropy-system-test! HAPPY CODING!"
+MESSAGE = "Hello from healthy A/B candidate 1.0.19"
 
 
 async def main():
     led = Pin("LED", Pin.OUT)
     print(MESSAGE)
+    # Configuration and managers are now alive. A short period of stable event
+    # loop operation is the application-level health boundary; Internet access
+    # is deliberately not part of confirmation.
+    await asyncio.sleep(3)
+    state = load_state()
+    running_slot = state["pending"] or state["active"]
+    confirm_running_slot(running_slot)
+    print("Confirmed healthy application slot: " + running_slot)
     while True:
         led.toggle()
         await asyncio.sleep(1)
