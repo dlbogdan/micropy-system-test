@@ -1,0 +1,3 @@
+[submodule "vendor/micropy-system"]
+	path = vendor/micropy-system
+	url = https://github.com/dlbogdan/micropy-system.git
