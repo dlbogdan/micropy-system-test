@@ -1,7 +1,7 @@
 import uasyncio as asyncio
 from machine import Pin
 
-MESSAGE = "Hello world from micropy-system-test!"
+MESSAGE = "Hello world from micropy-system-test! HAPPY CODING!"
 
 
 async def main():
